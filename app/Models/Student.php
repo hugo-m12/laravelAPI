@@ -14,4 +14,9 @@ class Student extends Model
         'birthdate',
         'grade'
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }

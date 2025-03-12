@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Models\Student;
@@ -34,4 +35,5 @@ return $students;
 Route::apiResource('/students', StudentController::class);
 Route::apiResource('/teachers', TeacherController::class);
 Route::apiResource('/courses', CourseController::class);
+Route::apiResource('/enrollments', EnrollmentController::class);
 
