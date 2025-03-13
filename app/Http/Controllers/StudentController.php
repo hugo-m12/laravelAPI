@@ -21,12 +21,14 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate(([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'birthdate' => 'required|date|before:today',
+            'grade' => 'required|string|max:10'
         ]));
         $student = new Student();
         $student->name = $request->input('name');
-        $student->name = $request->input('birthdate');
-        $student->name = $request->input('grade');
+        $student->birthdate = $request->input('birthdate');
+        $student->grade = $request->input('grade');
         $student->save();
 
         return response($student, 201);
@@ -50,10 +52,12 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate(([
-            'name' => 'required|max:255'
-        ]));
         $studentToUpdate = Student::find($id);
+        $request->validate(([
+            'name' => 'required|max:255',
+            'birthdate' => 'required|date|before:today',
+            'grade' => 'required|string|max:10'
+        ]));
         $studentToUpdate->name = $request->input('name');
         $studentToUpdate->birthdate = $request->input('birthdate');
         $studentToUpdate->grade = $request->input('grade');
@@ -70,7 +74,7 @@ class StudentController extends Controller
         $student = Student::find($id);
         if($student){
           $student->delete(); 
-          return response("Student Deleted Sucessfully", 200);
+          return response(["message" => "Student Deleted Sucessfully"], 200);
         } else {
             return response(null, 404);
         }

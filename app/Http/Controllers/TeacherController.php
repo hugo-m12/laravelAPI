@@ -21,11 +21,12 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $request->validate(([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'subject' => 'required|string|max:255'
         ]));
         $teacher = new Teacher();
         $teacher->name = $request->input('name');
-        $teacher->name = $request->input('subject');
+        $teacher->subject = $request->input('subject');
         $teacher->save();
 
         return response($teacher, 201);
@@ -50,7 +51,8 @@ class TeacherController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate(([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'subject' => 'required|string|max:255'
         ]));
         $teacherToUpdate = Teacher::find($id);
         $teacherToUpdate->name = $request->input('name');
@@ -68,7 +70,7 @@ class TeacherController extends Controller
         $teacher = Teacher::find($id);
         if($teacher){
           $teacher->delete(); 
-          return response("Teacher deleted Successfully", 200);
+          return response(["message" => "Teacher Deleted Sucessfully"], 200);
         } else {
             return response(null, 404);
         }

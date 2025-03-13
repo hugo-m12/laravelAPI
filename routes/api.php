@@ -34,6 +34,10 @@ return $students;
 
 Route::apiResource('/students', StudentController::class);
 Route::apiResource('/teachers', TeacherController::class);
-Route::apiResource('/courses', CourseController::class);
-Route::apiResource('/enrollments', EnrollmentController::class);
 
+Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/{id}', [CourseController::class, 'show']);
+
+Route::post('/enrollments', [EnrollmentController::class, 'store']);
+Route::get('/enrollments/{student_id}', [EnrollmentController::class, 'showByStudentId']);
+Route::delete('/enrollments/{student_id}/{course_id}', [EnrollmentController::class, 'destroy']);
