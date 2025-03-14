@@ -16,7 +16,7 @@ class EnrollmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function createEnrollment(Request $request)
     {
         try {
             $request->validate([
@@ -62,8 +62,10 @@ class EnrollmentController extends Controller
         return $result;
     }
 
-    public function destroy (string $student_id, string $course_id)
+    public function deleteEnrollment (string $enrollment_id, string $student_id, string $course_id)
     {
+        $student = Enrollment::find($enrollment_id);
+
         $student = Student::find($student_id);
 
         $course = Student::find($course_id);
@@ -71,11 +73,11 @@ class EnrollmentController extends Controller
         $enrollments = $student->enrollments;
 
         if($enrollments) {
-            Enrollment::destroy($student_id, $course_id);
+            Enrollment::destroy($enrollment_id, $student_id, $course_id);
             return response(["message" => "Student unenrolled successfully"], 200);
         }
         else {
             return response(null, 404);
         }
-    } //todo fix delete
+    } 
 }
